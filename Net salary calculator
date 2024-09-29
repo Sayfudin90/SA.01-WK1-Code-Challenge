@@ -1,0 +1,65 @@
+function calculatePAYE(grossSalary) {
+    let paye = 0;
+    
+    if (grossSalary <= 24000) {
+        paye = grossSalary * 0.1;
+    } else if (grossSalary <= 32333) {
+        paye = 2400 + (grossSalary - 24000) * 0.25;
+    } else {
+        paye = 2400 + (8333 * 0.25) + (grossSalary - 32333) * 0.3;
+    }
+
+    
+    paye = Math.max(paye - 2400, 0);
+    return paye;
+}
+
+function calculateNHIF(grossSalary) {
+    if (grossSalary <= 5999) return 150;
+    if (grossSalary <= 7999) return 300;
+    if (grossSalary <= 11999) return 400;
+    if (grossSalary <= 14999) return 500;
+    if (grossSalary <= 19999) return 600;
+    if (grossSalary <= 24999) return 750;
+    if (grossSalary <= 29999) return 850;
+    if (grossSalary <= 34999) return 900;
+    if (grossSalary <= 39999) return 950;
+    if (grossSalary >= 100000) return 1700;
+    return 1000;
+}
+function calculateNSSF() {
+    return 200;
+}
+
+
+function calculateNetSalary(basicSalary, benefits) {
+    
+    const grossSalary = basicSalary + benefits;
+
+    
+    const paye = calculatePAYE(grossSalary);
+
+    
+    const nhif = calculateNHIF(grossSalary);
+
+    
+    const nssf = calculateNSSF();
+
+    
+    const netSalary = grossSalary - paye - nhif - nssf;
+
+    
+    console.log(`Gross Salary: Ksh ${grossSalary}`);
+    console.log(`PAYE (Tax): Ksh ${paye}`);
+    console.log(`NHIF Deductions: Ksh ${nhif}`);
+    console.log(`NSSF Deductions: Ksh ${nssf}`);
+    console.log(`Net Salary: Ksh ${netSalary}`);
+
+    return netSalary;
+}
+
+
+const basicSalary = 50000;
+const benefits = 10000; 
+
+calculateNetSalary(basicSalary, benefits);
